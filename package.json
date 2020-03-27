@@ -1,0 +1,39 @@
+{
+  "name": "project2_108",
+  "version": "1.0.0",
+  "description": "training_project_difference_calculator",
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "babel.config.js",
+  "dependencies": {
+    "commander": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rnik82/frontend-project-lvl2.git"
+  },
+  "author": "roman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rnik82/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/rnik82/frontend-project-lvl2#readme"
+}
