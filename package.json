@@ -8,9 +8,11 @@
   "files": [
     "dist"
   ],
-  "main": "babel.config.js",
+  "main": "dist/genDiff.js",
   "dependencies": {
-    "commander": "^5.0.0"
+    "commander": "^5.0.0",
+    "genDiff": "file:../genDiff_for_project2",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
