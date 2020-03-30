@@ -8,5 +8,4 @@
 
 ## example of genDiff
 
-    <script id="asciicast-MEc4wsWEOIQF8TD8ESZoPa59t" src="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t.js" async></script>
-
+<a href="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t" target="_blank"><img src="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t.svg" /></a>
