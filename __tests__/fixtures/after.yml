@@ -1,0 +1,5 @@
+# представление after.json в формате yaml
+
+timeout: 20
+verbose: true
+host: hexlet.io

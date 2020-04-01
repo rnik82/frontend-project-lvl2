@@ -13,3 +13,8 @@
 ### example of genDiff
 
 <a href="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t" target="_blank"><img src="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t.svg" /></a>
+
+
+### genDiff with .yml files
+
+<a href="https://asciinema.org/a/315589" target="_blank"><img src="https://asciinema.org/a/315589.svg" /></a>

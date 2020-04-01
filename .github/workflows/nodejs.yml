@@ -21,8 +21,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
       env:
           CI: true
+
     - name: Run linter
       # Run Linter
       run: |
@@ -31,10 +33,10 @@ jobs:
     - name: Test & publish code coverage
       # Publish code coverage on Code Climate
       # https://github.com/paambaati/codeclimate-action
-      uses: paambaati/codeclimate-action@v2.4.0
+      uses: paambaati/codeclimate-action@v2.5.6
       # Add Code Climate secret key
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
-        coverageCommand: make test-coverage
+        coverageCommand: npm run coverage
         debug: true
