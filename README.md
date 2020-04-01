@@ -2,7 +2,7 @@
 
 # Difference evaluator
 
-[![Node.js CI](https://github.com/rnik82/frontend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/rnik82/frontend-project-lvl2/actions)
+![Node CI](https://github.com/rnik82/frontend-project-lvl2/workflows/Node%20CI/badge.svg?branch=master&event=push)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ea43de55f54d044ffd18/maintainability)](https://codeclimate.com/github/rnik82/frontend-project-lvl2/maintainability)
 
 ## To install:
