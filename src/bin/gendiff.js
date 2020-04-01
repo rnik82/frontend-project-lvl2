@@ -10,6 +10,7 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
     const diff = genDiff(firstConfig, secondConfig);
+    // eslint-disable-next-line no-console
     console.log(diff);
   });
 
