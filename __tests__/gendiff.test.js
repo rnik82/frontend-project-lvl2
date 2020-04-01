@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import genDiff from 'genDiff';
+import genDiff from '../src';
 
 const correctValue = `{
   host: hexlet.io
