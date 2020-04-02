@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
+
 import genDiff from '../src';
 
-const correctValue = `{
+const expected = `{
   host: hexlet.io
 - timeout: 50
 + timeout: 20
@@ -10,24 +11,31 @@ const correctValue = `{
 + verbose: true
 }`;
 
-const path1JSON = './__tests__/fixtures/before.json';
-const path2JSON = './__tests__/fixtures/after.json';
+const pathToBefore = './__tests__/fixtures/before';
+const pathToAfter = './__tests__/fixtures/after';
+const absolutPathToBefore = `${__dirname}/fixtures/before`;
+const absolutPathToAfter = `${__dirname}/fixtures/after`;
 
-const absolutPath1JSON = `${__dirname}/fixtures/before.json`;
-const absolutPath2JSON = `${__dirname}/fixtures/after.json`;
+describe.each([
+  [`${pathToBefore}.json`, `${pathToAfter}.json`,
+  `${absolutPathToBefore}.json`, `${absolutPathToAfter}.json`],
+  [`${pathToBefore}.yml`, `${pathToAfter}.yml`,
+  `${absolutPathToBefore}.yml`, `${absolutPathToAfter}.yml`],
+  [`${pathToBefore}.ini`, `${pathToAfter}.yml`,
+  `${absolutPathToBefore}.yml`, `${absolutPathToAfter}.yml`],
+])('genDiff', (a, b, c, d) => {
+  test('check .json', () => {
+    expect(genDiff(a, b)).toBe(expected);
+    expect(genDiff(c, d)).toBe(expected);
+  });
 
-const path1YAML = './__tests__/fixtures/before.yml';
-const path2YAML = './__tests__/fixtures/after.yml';
+  test('check .yml', () => {
+    expect(genDiff(a, b)).toBe(expected);
+    expect(genDiff(c, d)).toBe(expected);
+  });
 
-const absolutPath1YAML = `${__dirname}/fixtures/before.yml`;
-const absolutPath2YAML = `${__dirname}/fixtures/after.yml`;
-
-test('genDiffJSON', () => {
-  expect(genDiff(path1JSON, path2JSON)).toEqual(correctValue);
-  expect(genDiff(absolutPath1JSON, absolutPath2JSON)).toEqual(correctValue);
-});
-
-test('genDiffYAML', () => {
-  expect(genDiff(path1YAML, path2YAML)).toEqual(correctValue);
-  expect(genDiff(absolutPath1YAML, absolutPath2YAML)).toEqual(correctValue);
+  test('check .ini', () => {
+    expect(genDiff(a, b)).toBe(expected);
+    expect(genDiff(c, d)).toBe(expected);
+  });
 });

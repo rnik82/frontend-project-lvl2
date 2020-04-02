@@ -18,3 +18,8 @@
 ### genDiff with .yml files
 
 <a href="https://asciinema.org/a/315589" target="_blank"><img src="https://asciinema.org/a/315589.svg" /></a>
+
+
+### genDiff with .ini files
+
+<a href="https://asciinema.org/a/316021" target="_blank"><img src="https://asciinema.org/a/316021.svg" /></a>
