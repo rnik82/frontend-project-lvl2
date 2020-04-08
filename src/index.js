@@ -1,28 +1,39 @@
-import { uniq, has } from 'lodash';
+import _ from 'lodash';
 import parsers from './parsers';
+import diff from './diff';
+
+const buildAst = (data1, data2) => {
+
+  const keys1 = Object.keys(data1);
+  const keys2 = Object.keys(data2);
+
+  const commonKeys = _.uniq(keys1.concat(keys2));
+
+  const result = commonKeys.map((key) => {
+    const value1 = data1[key];
+    const value2 = data2[key];
+    if (_.has(data1, key) && _.has(data2, key)) {
+      if (typeof value1 === 'object' && typeof value2 === 'object') {
+        return { status: 'unchanged', key, children: buildAst(value1, value2)};
+      }
+      if (value1 !== value2) {
+        return [{ status: 'removed', key, value: value1}, { status: 'added', key, value: value2 }];
+      }
+      return { status: 'unchanged', key, value: value1};
+    }
+    if (_.has(data1, key) && !_.has(data2, key)) {
+      return { status: 'removed', key, value: value1};
+    }
+    if (!_.has(data1, key) && _.has(data2, key)) {
+      return { status: 'added', key, value: value2 };
+      }
+    });
+  return _.flatten(result);
+};
 
 export default (pathToFile1, pathToFile2) => {
-
-  const object1 = parsers(pathToFile1);
-  const object2 = parsers(pathToFile2);
-  
-  const keys1 = Object.keys(object1);
-  const keys2 = Object.keys(object2);
-
-  const commonKeys = uniq(keys1.concat(keys2));
-
-  const result = commonKeys.reduce((acc, key) => {
-    if (has(object1, key) && has(object2, key) && object1[key] === object2[key]) {
-      return [...acc, `  ${key}: ${object1[key]}`];
-    }
-    if (has(object1, key) && has(object2, key) && object1[key] !== object2[key]) {
-      return [...acc, `- ${key}: ${object1[key]}`, `+ ${key}: ${object2[key]}`];
-    }
-    if (has(object1, key) && !has(object2, key)) {
-      return [...acc, `- ${key}: ${object1[key]}`];
-    }
-    return [...acc, `+ ${key}: ${object2[key]}`];
-  }, []);
-
-  return `{\n${result.join('\n')}\n}`;
+  const parsedData1 = parsers(pathToFile1);
+  const parsedData2 = parsers(pathToFile2);
+  const dataAst = buildAst(parsedData1, parsedData2);
+  return diff(dataAst);
 };

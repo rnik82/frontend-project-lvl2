@@ -9,9 +9,10 @@ program
   .option('-f, --format [type]', 'output format')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
-    const diff = genDiff(firstConfig, secondConfig);
+    const result = genDiff(firstConfig, secondConfig);
     // eslint-disable-next-line no-console
-    console.log(diff);
+    console.log(result);
+    return result;
   });
 
 program.parse(process.argv);
