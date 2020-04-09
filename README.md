@@ -25,11 +25,16 @@
 <a href="https://asciinema.org/a/316021" target="_blank"><img src="https://asciinema.org/a/316021.svg" /></a>
 
 
-### genDiff recursive
+### genDiff format 'recursive'
 
 <a href="https://asciinema.org/a/317751" target="_blank"><img src="https://asciinema.org/a/317751.svg" /></a>
 
 
-### genDiff plain
+### genDiff format 'plain'
 
 <a href="https://asciinema.org/a/318125" target="_blank"><img src="https://asciinema.org/a/318125.svg" /></a>
+
+
+### genDiff format 'json'
+
+<a href="https://asciinema.org/a/318206" target="_blank"><img src="https://asciinema.org/a/318206.svg" /></a>

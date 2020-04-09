@@ -9,10 +9,12 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 let expected;
 let expectedPlain;
+let expectedJson;
 
 beforeAll(() => {
   expected = readFile('result.txt').trim();
   expectedPlain = readFile('resultPlain.txt').trim();
+  expectedJson = readFile('resultJson.txt').trim();
 });
 
 test('json', () => {
@@ -20,6 +22,7 @@ test('json', () => {
   const after = getFixturePath('after.json');
   expect(genDiff(before, after)).toBe(expected);
   expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
+  expect(genDiff(before, after, 'json')).toBe(expectedJson);
 });
 
 test('yml', () => {
@@ -27,6 +30,7 @@ test('yml', () => {
   const after = getFixturePath('after.yml');
   expect(genDiff(before, after)).toEqual(expected);
   expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
+  expect(genDiff(before, after, 'json')).toBe(expectedJson);
 });
 
 test('ini', () => {
@@ -34,4 +38,5 @@ test('ini', () => {
   const after = getFixturePath('after.ini');
   expect(genDiff(before, after)).toEqual(expected);
   expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
+  expect(genDiff(before, after, 'json')).toBe(expectedJson);
 });
