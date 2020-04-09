@@ -10,7 +10,7 @@
 	sudo npm install -g project2_108
 
 
-### example of genDiff
+### example of genDiff with .json files
 
 <a href="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t" target="_blank"><img src="https://asciinema.org/a/MEc4wsWEOIQF8TD8ESZoPa59t.svg" /></a>
 
@@ -28,3 +28,8 @@
 ### genDiff recursive
 
 <a href="https://asciinema.org/a/317751" target="_blank"><img src="https://asciinema.org/a/317751.svg" /></a>
+
+
+### genDiff plain
+
+<a href="https://asciinema.org/a/318125" target="_blank"><img src="https://asciinema.org/a/318125.svg" /></a>

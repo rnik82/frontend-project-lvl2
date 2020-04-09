@@ -6,13 +6,11 @@ import genDiff from '..';
 program
   .version('0.0.1')
   .description('Compares two configuration files and shows a difference.')
-  .option('-f, --format [type]', 'output format')
-  .arguments('<firstConfig> <secondConfig>')
+  .option('-f, --format [type]', 'output format', 'recursive')
+  .arguments('<firstConfig> <secondConfig> [option]')
   .action((firstConfig, secondConfig) => {
-    const result = genDiff(firstConfig, secondConfig);
-    // eslint-disable-next-line no-console
+    const result = genDiff(firstConfig, secondConfig, program.format);
     console.log(result);
-    return result;
   });
 
 program.parse(process.argv);
