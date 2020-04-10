@@ -7,36 +7,30 @@ import genDiff from '../src';
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-let expected;
+let expectedRecursive;
 let expectedPlain;
 let expectedJson;
 
 beforeAll(() => {
-  expected = readFile('result.txt').trim();
+  expectedRecursive = readFile('resultRecursive.txt').trim();
   expectedPlain = readFile('resultPlain.txt').trim();
   expectedJson = readFile('resultJson.txt').trim();
 });
 
-test('json', () => {
-  const before = getFixturePath('before.json');
-  const after = getFixturePath('after.json');
-  expect(genDiff(before, after)).toBe(expected);
-  expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
-  expect(genDiff(before, after, 'json')).toBe(expectedJson);
-});
+describe.each([
+  [getFixturePath('before.json'), getFixturePath('after.json')],
+  [getFixturePath('before.yml'), getFixturePath('after.yml')],
+  [getFixturePath('before.ini'), getFixturePath('after.ini')],
+])('%# (0 - json, 1 - yml, 2 - ini)', (b, a) => {
+  test('--flag recursive', () => {
+    expect(genDiff(b, a)).toBe(expectedRecursive);
+  });
 
-test('yml', () => {
-  const before = getFixturePath('before.yml');
-  const after = getFixturePath('after.yml');
-  expect(genDiff(before, after)).toEqual(expected);
-  expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
-  expect(genDiff(before, after, 'json')).toBe(expectedJson);
-});
+  test('--flag plain', () => {
+    expect(genDiff(b, a, 'plain')).toBe(expectedPlain);
+  });
 
-test('ini', () => {
-  const before = getFixturePath('before.ini');
-  const after = getFixturePath('after.ini');
-  expect(genDiff(before, after)).toEqual(expected);
-  expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
-  expect(genDiff(before, after, 'json')).toBe(expectedJson);
+  test('--flag json', () => {
+    expect(genDiff(b, a, 'json')).toBe(expectedJson);
+  });
 });

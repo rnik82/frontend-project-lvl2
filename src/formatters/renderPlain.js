@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const formationOfLines = (status, ancestors, value1, value2) => {
+const makeLine = (status, ancestors, value1, value2) => {
     const property = ancestors.join('.');
 
     const newValue1 = _.isString(value1) && value1 !== '[complex value]' ? `'${value1}'` : value1;
@@ -28,7 +28,7 @@ const renderPlain = (ast, ancestors = [], accR = '') => {
         if (status === 'unchanged') {
             return acc;
         }
-        const newLine = formationOfLines(status, newAncestors, newValue, newValue2);
+        const newLine = makeLine(status, newAncestors, newValue, newValue2);
         return `${acc}\n${newLine}`;
     }, accR);
     return result.trim();
