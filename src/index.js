@@ -1,18 +1,12 @@
 import buildAst from './buildAst';
-import parsers from './parsers';
-import render from './formatters/render';
-import renderPlain from './formatters/renderPlain';
-import renderJson from './formatters/renderJson';
+import render from './formatters/index';
+import parse from './parsers';
 
 export default (pathToFile1, pathToFile2, format) => {
-  const dataAst = buildAst(parsers(pathToFile1), parsers(pathToFile2));
+  const parsedData1 = parse(pathToFile1);
+  const parsedData2 = parse(pathToFile2);
+  
+  const dataAst = buildAst(parsedData1, parsedData2);
 
-  if (format === 'plain') {
-    return renderPlain(dataAst);
-
-  } else if (format === 'json') {
-    return renderJson(dataAst);
-  }
-
-  return render(dataAst);
+  return render(dataAst, format);
 };

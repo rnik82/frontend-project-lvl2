@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import fs from 'fs';
 import path from 'path';
 import genDiff from '../src';
@@ -17,20 +15,28 @@ beforeAll(() => {
   expectedJson = readFile('resultJson.txt').trim();
 });
 
-describe.each([
-  [getFixturePath('before.json'), getFixturePath('after.json')],
-  [getFixturePath('before.yml'), getFixturePath('after.yml')],
-  [getFixturePath('before.ini'), getFixturePath('after.ini')],
-])('%# (0 - json, 1 - yml, 2 - ini)', (b, a) => {
-  test('--flag recursive', () => {
-    expect(genDiff(b, a)).toBe(expectedRecursive);
+describe('testing gendiff', () => {
+  test('.json', () => {
+    const pathToBefore = getFixturePath('before.json');
+    const pathToAfter = getFixturePath('after.json');
+    expect(genDiff(pathToBefore, pathToAfter)).toBe(expectedRecursive);
+    expect(genDiff(pathToBefore, pathToAfter, 'plain')).toBe(expectedPlain);
+    expect(genDiff(pathToBefore, pathToAfter, 'json')).toBe(expectedJson);
   });
 
-  test('--flag plain', () => {
-    expect(genDiff(b, a, 'plain')).toBe(expectedPlain);
+  test('.yml', () => {
+    const pathToBefore = getFixturePath('before.yml');
+    const pathToAfter = getFixturePath('after.yml');
+    expect(genDiff(pathToBefore, pathToAfter)).toBe(expectedRecursive);
+    expect(genDiff(pathToBefore, pathToAfter, 'plain')).toBe(expectedPlain);
+    expect(genDiff(pathToBefore, pathToAfter, 'json')).toBe(expectedJson);
   });
 
-  test('--flag json', () => {
-    expect(genDiff(b, a, 'json')).toBe(expectedJson);
+  test('.ini', () => {
+    const pathToBefore = getFixturePath('before.ini');
+    const pathToAfter = getFixturePath('after.ini');
+    expect(genDiff(pathToBefore, pathToAfter)).toBe(expectedRecursive);
+    expect(genDiff(pathToBefore, pathToAfter, 'plain')).toBe(expectedPlain);
+    expect(genDiff(pathToBefore, pathToAfter, 'json')).toBe(expectedJson);
   });
 });

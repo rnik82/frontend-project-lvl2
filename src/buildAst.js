@@ -11,7 +11,7 @@ const buildAst = (data1, data2) => {
       const value1 = data1[key];
       const value2 = data2[key];
       if (_.has(data1, key) && _.has(data2, key)) {
-        if (typeof value1 === 'object' && typeof value2 === 'object') {
+        if (_.isObject(value1) && _.isObject(value2)) {
           return { status: 'unchanged', key, children: buildAst(value1, value2)};
         }
         if (value1 !== value2) {
@@ -26,7 +26,7 @@ const buildAst = (data1, data2) => {
         return { status: 'added', key, value: value2 };
         }
       });
-    return _.flatten(result);
+    return result;
   };
 
   export default buildAst;
