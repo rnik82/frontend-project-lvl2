@@ -33,7 +33,6 @@ export default (pathToFile) => {
     |> path.resolve(#, pathToFile)
     |> fs.readFileSync(#, 'utf-8');
   
-  
   const result = path.extname(pathToFile)
     |> parse[#](data);
 

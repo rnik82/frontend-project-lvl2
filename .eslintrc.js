@@ -4,7 +4,7 @@ module.exports = {
         "node": true,
 	"jest": true
     },
-    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -13,6 +13,4 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "rules": {
-    }
 };
