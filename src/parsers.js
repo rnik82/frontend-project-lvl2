@@ -21,20 +21,22 @@ const changeStrToNumber = (object) => {
   }, {});
 };
 
-export default (pathToFile) => {
-  
-  const parse = {
+const makeParse = (data, extension) => {
+  const parsers = {
     '.json': (data) => JSON.parse(data),
     '.yml': (data) => yaml.safeLoad(data),
     '.ini': (data) => changeStrToNumber(ini.parse(data)),
   };
+  return parsers[extension](data);
+};
+
+export default (pathToFile) => {
 
   const data = process.cwd()
     |> path.resolve(#, pathToFile)
     |> fs.readFileSync(#, 'utf-8');
-  
-  const result = path.extname(pathToFile)
-    |> parse[#](data);
 
-  return result;
+  const extension = path.extname(pathToFile);
+
+  return makeParse(data, extension);
 };
