@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const build = (key, obj1, obj2) => {
+const buildNode = (key, obj1, obj2) => {
   const value1 = obj1[key];
   const value2 = obj2[key];
 
@@ -20,7 +20,7 @@ const build = (key, obj1, obj2) => {
 
 const buildAst = (obj1, obj2) => {
   const keys = Object.keys({ ...obj1, ...obj2 });
-  return keys.map((key) => build(key, obj1, obj2));
+  return keys.map((key) => buildNode(key, obj1, obj2));
 };
 
 export default buildAst;
