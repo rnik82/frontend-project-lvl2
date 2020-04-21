@@ -13,30 +13,31 @@ const changeStrToNumber = (object) => {
     if (_.isObject(value)) {
       return { ...acc, [key]: changeStrToNumber(value) };
     }
-    const valueForCheck = Number(value);
-    const newValue = !_.isBoolean(value) && !_.isNaN(valueForCheck)
-      ? valueForCheck : value;
-
-    return { ...acc, [key]: newValue };
+    if (_.isBoolean(value) || _.isNaN(Number(value))) {
+      return { ...acc, [key]: value };
+    }
+    return { ...acc, [key]: Number(value) };
   }, {});
 };
 
-const makeParse = (data, extension) => {
-  const parsers = {
-    '.json': (data) => JSON.parse(data),
-    '.yml': (data) => yaml.safeLoad(data),
-    '.ini': (data) => changeStrToNumber(ini.parse(data)),
-  };
-  return parsers[extension](data);
-};
+const parseJson = (data) => JSON.parse(data);
+
+const parseYaml = (data) => yaml.safeLoad(data);
+
+const parseIni = (data) => changeStrToNumber(ini.parse(data));
 
 export default (pathToFile) => {
-
   const data = process.cwd()
     |> path.resolve(#, pathToFile)
     |> fs.readFileSync(#, 'utf-8');
 
   const extension = path.extname(pathToFile);
 
-  return makeParse(data, extension);
+  if (extension === '.json') {
+    return parseJson(data);
+  }
+  if (extension === '.yml') {
+    return parseYaml(data);
+  }
+  return parseIni(data);
 };
