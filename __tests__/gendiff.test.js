@@ -16,11 +16,13 @@ beforeAll(() => {
 });
 
 test.each([
-  [getFixturePath('before.json'), getFixturePath('after.json')],
-  [getFixturePath('before.yml'), getFixturePath('after.yml')],
-  [getFixturePath('before.ini'), getFixturePath('after.ini')],
-])('gendiff %#', (b, a) => {
-  expect(genDiff(b, a)).toBe(expectedRecursive);
-  expect(genDiff(b, a, 'plain')).toBe(expectedPlain);
-  expect(genDiff(b, a, 'json')).toBe(expectedJson);
+  ['before.json', 'after.json'],
+  ['before.yml', 'after.yml'],
+  ['before.ini', 'after.ini'],
+])('gendiff %s %s', (b, a) => {
+  const pathToBefore = getFixturePath(b);
+  const pathToAfter = getFixturePath(a);
+  expect(genDiff(pathToBefore, pathToAfter)).toBe(expectedRecursive);
+  expect(genDiff(pathToBefore, pathToAfter, 'plain')).toBe(expectedPlain);
+  expect(genDiff(pathToBefore, pathToAfter, 'json')).toBe(expectedJson);
   });
