@@ -20,7 +20,7 @@ const buildNode = (key, obj1, obj2) => {
     return { status: 'changed', key, value1, value2 };
   }
   
-  return { status: 'unchanged', key, value1, value2 };
+  return { status: 'unchanged', key, value1 };
 };
 
 const buildAst = (obj1, obj2) => {

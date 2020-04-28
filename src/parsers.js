@@ -20,12 +20,6 @@ const changeStrToNumber = (object) => {
   }, {});
 };
 
-const parseJson = (data) => JSON.parse(data);
-
-const parseYaml = (data) => yaml.safeLoad(data);
-
-const parseIni = (data) => changeStrToNumber(ini.parse(data));
-
 export default (pathToFile) => {
   const data = process.cwd()
     |> path.resolve(#, pathToFile)
@@ -34,10 +28,10 @@ export default (pathToFile) => {
   const extension = path.extname(pathToFile);
 
   if (extension === '.json') {
-    return parseJson(data);
+    return JSON.parse(data);
   }
   if (extension === '.yml') {
-    return parseYaml(data);
+    return yaml.safeLoad(data);
   }
-  return parseIni(data);
+  return changeStrToNumber(ini.parse(data));
 };
