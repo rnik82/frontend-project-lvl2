@@ -13,10 +13,10 @@ const changeStrToNumber = (object) => {
     if (_.isObject(value)) {
       return { ...acc, [key]: changeStrToNumber(value) };
     }
-    if (_.isBoolean(value) || _.isNaN(Number(value))) {
+    if (_.isBoolean(value) || _.isNaN(_.toNumber(value))) {
       return { ...acc, [key]: value };
     }
-    return { ...acc, [key]: Number(value) };
+    return { ...acc, [key]: _.toNumber(value) };
   }, {});
 };
 
