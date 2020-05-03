@@ -4,11 +4,11 @@ const buildNode = (key, obj1, obj2) => {
   const value1 = obj1[key];
   const value2 = obj2[key];
 
-  if (!value1) {
+  if (!_.has(obj1, key) && _.has(obj2, key)) {
     return { status: 'added', key, value1: null, value2 };
   }
 
-  if (!value2) {
+  if (_.has(obj1, key) && !_.has(obj2, key)) {
     return { status: 'deleted', key, value1, value2: null };
   }
 
