@@ -1,5 +1,3 @@
-# представление в формате yaml
-
 common:
   follow: false
   setting1: Value 1

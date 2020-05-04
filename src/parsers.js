@@ -20,18 +20,32 @@ const changeStrToNumber = (object) => {
   }, {});
 };
 
-export default (pathToFile) => {
-  const data = process.cwd()
-    |> path.resolve(#, pathToFile)
-    |> fs.readFileSync(#, 'utf-8');
-
+const getFileInfo = (pathToFile) => {
+  const relativPath = process.cwd();
+  const absolutPath = path.resolve(relativPath, pathToFile);
   const extension = path.extname(pathToFile);
+  return { absolutPath, extension };
+};
 
-  if (extension === '.json') {
-    return JSON.parse(data);
+const makeParse = (data, type) => {
+  switch (type) {
+    case '.json':
+      return JSON.parse(data);
+      break;
+    case '.yml':
+      return yaml.safeLoad(data);
+      break;
+    case '.ini':
+      return changeStrToNumber(ini.parse(data));
+      break;
+    default:
+      throw new Error(`Unknown type: '${type}'!`);
   }
-  if (extension === '.yml') {
-    return yaml.safeLoad(data);
-  }
-  return changeStrToNumber(ini.parse(data));
+};
+
+export default (pathToFile) => {
+  const fileInfo = getFileInfo(pathToFile);
+  const data = fs.readFileSync(fileInfo.absolutPath, 'utf-8');
+
+  return makeParse(data, fileInfo.extension);
 };

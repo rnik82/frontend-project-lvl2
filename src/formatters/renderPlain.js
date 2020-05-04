@@ -28,7 +28,7 @@ const makeLine = (status, ancestors, value1, value2, children) => {
         changed: `Property '${property}' was changed from ${updetedValie1} to ${updetedValie2}`,
         added: `Property '${property}' was added with value: ${updetedValie2}`,
         deleted: `Property '${property}' was deleted`,
-    }
+    };
     const line = chooseRow[status];
     return line;
 };
