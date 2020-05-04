@@ -10,7 +10,7 @@ const stringify = (object, gap) => {
 
 const makeLine = ({ status, key, value1, value2, children }, gap) => {
   if (status === 'nested') {
-    return `${' '.repeat(gap + 2)}  ${key}: ${render(_.flatten(children), gap + 4)}`;
+    return `${' '.repeat(gap + 2)}  ${key}: ${render(children, gap + 4)}`;
   }
   const newValue1 = _.isObject(value1) ? stringify(value1, gap + 8) : value1;
   const newValue2 = _.isObject(value2) ? stringify(value2, gap + 8) : value2;
