@@ -1,6 +1,3 @@
-import path from 'path';
-import process from 'process';
-import fs from 'fs';
 import yaml from 'js-yaml';
 import ini from 'ini';
 import _ from 'lodash';
@@ -20,14 +17,7 @@ const changeStrToNumber = (object) => {
   }, {});
 };
 
-const getFileInfo = (pathToFile) => {
-  const relativPath = process.cwd();
-  const absolutPath = path.resolve(relativPath, pathToFile);
-  const extension = path.extname(pathToFile);
-  return { absolutPath, extension };
-};
-
-const makeParse = (data, type) => {
+export default (data, type) => {
   switch (type) {
     case '.json':
       return JSON.parse(data);
@@ -41,11 +31,4 @@ const makeParse = (data, type) => {
     default:
       throw new Error(`Unknown type: '${type}'!`);
   }
-};
-
-export default (pathToFile) => {
-  const fileInfo = getFileInfo(pathToFile);
-  const data = fs.readFileSync(fileInfo.absolutPath, 'utf-8');
-
-  return makeParse(data, fileInfo.extension);
 };
