@@ -25,4 +25,4 @@ test.each([
   expect(genDiff(pathToBefore, pathToAfter)).toBe(expectedRecursive);
   expect(genDiff(pathToBefore, pathToAfter, 'plain')).toBe(expectedPlain);
   expect(genDiff(pathToBefore, pathToAfter, 'json')).toBe(expectedJson);
-  });
+});

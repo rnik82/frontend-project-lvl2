@@ -1,9 +1,9 @@
-import buildAst from './buildAst';
-import render from './formatters/index';
-import parse from './parsers';
 import path from 'path';
 import process from 'process';
 import fs from 'fs';
+import buildAst from './buildAst';
+import render from './formatters/index';
+import parse from './parsers';
 
 const getFileInfo = (pathToFile) => {
   const relativPath = process.cwd();
