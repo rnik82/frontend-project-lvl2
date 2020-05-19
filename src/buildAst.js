@@ -7,12 +7,12 @@ const buildAst = (config1, config2) => {
 
     if (!_.has(obj1, key)) {
       return {
-        status: 'added', key, value1: null, value2, children: [],
+        status: 'added', key, value1: null, value2,
       };
     }
     if (!_.has(obj2, key)) {
       return {
-        status: 'deleted', key, value1, value2: null, children: [],
+        status: 'deleted', key, value1, value2: null,
       };
     }
     if (_.isObject(value1) && _.isObject(value2)) {
@@ -22,11 +22,11 @@ const buildAst = (config1, config2) => {
     }
     if (value1 !== value2) {
       return {
-        status: 'changed', key, value1, value2, children: [],
+        status: 'changed', key, value1, value2,
       };
     }
     return {
-      status: 'unchanged', key, value1, children: [],
+      status: 'unchanged', key, value1,
     };
   };
 

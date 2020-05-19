@@ -17,18 +17,13 @@ const changeStrToNumber = (object) => {
   }, {});
 };
 
-export default (data, extension) => {
-// Решил оставить extension, иначе придется раздувать index.js чтобы удалить это точку.
-// Или это все-таки тот случай, когда "Парсинг не работает с понятиями файловой системы,
-// он работает с данными и их типом"?
-  switch (extension) {
-    case '.json':
-      return JSON.parse(data);
-    case '.yml':
-      return yaml.safeLoad(data);
-    case '.ini':
-      return changeStrToNumber(ini.parse(data));
-    default:
-      throw new Error(`Unknown extension: '${extension}'!`);
-  }
+const mapping = {
+  json: JSON.parse,
+  yml: yaml.safeLoad,
+  ini: ini.parse,
+};
+
+export default (data, type) => {
+  const parsedData = mapping[type](data);
+  return type === 'ini' ? changeStrToNumber(parsedData) : parsedData;
 };

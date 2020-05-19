@@ -9,7 +9,8 @@ const getFileInfo = (pathToFile) => {
   const relativPath = process.cwd();
   const absolutPath = path.resolve(relativPath, pathToFile);
   const extension = path.extname(pathToFile);
-  return { absolutPath, extension };
+  const type = extension.substr(1);
+  return { absolutPath, type };
 };
 
 export default (pathToFile1, pathToFile2, format) => {
@@ -19,8 +20,8 @@ export default (pathToFile1, pathToFile2, format) => {
   const data1 = fs.readFileSync(fileInfo1.absolutPath, 'utf-8');
   const data2 = fs.readFileSync(fileInfo2.absolutPath, 'utf-8');
 
-  const parsedData1 = parse(data1, fileInfo1.extension);
-  const parsedData2 = parse(data2, fileInfo2.extension);
+  const parsedData1 = parse(data1, fileInfo1.type);
+  const parsedData2 = parse(data2, fileInfo2.type);
 
   const dataAst = buildAst(parsedData1, parsedData2);
 

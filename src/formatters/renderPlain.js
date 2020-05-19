@@ -10,34 +10,25 @@ const makeValue = (value) => {
   return value;
 };
 
+const makeLine = {
+  unchanged: () => null,
+  changed: (ancestors, values) => `Property '${ancestors.join('.')}' was changed from ${values.value1} to ${values.value2}`,
+  added: (ancestors, values) => `Property '${ancestors.join('.')}' was added with value: ${values.value2}`,
+  deleted: (ancestors) => `Property '${ancestors.join('.')}' was deleted`,
+};
+
 const renderPlain = (ast, ancestors = []) => {
-  const makeLine = (node, arrOfAncestors) => {
-    const {
-      status, value1, value2, children,
-    } = node;
-
-    const property = arrOfAncestors.join('.');
-    const updetedValie1 = makeValue(value1);
-    const updetedValie2 = makeValue(value2);
-
-    const chooseRow = {
-      nested: renderPlain(children, ancestors),
-      unchanged: '',
-      changed: `Property '${property}' was changed from ${updetedValie1} to ${updetedValie2}`,
-      added: `Property '${property}' was added with value: ${updetedValie2}`,
-      deleted: `Property '${property}' was deleted`,
-    };
-
-    const line = chooseRow[status];
-    return line;
-  };
-
-  if (_.isPlainObject(ast)) {
-    return makeLine(ast, ancestors);
+  if (ast.length === 0) { // наверное лучше убрать
+    return null;
   }
   const result = ast.map((child) => {
     const newAncestors = [...ancestors, child.key];
-    return renderPlain(child, newAncestors);
+    if (child.status === 'nested') {
+      return renderPlain(child.children, newAncestors);
+    }
+    const value1 = makeValue(child.value1);
+    const value2 = makeValue(child.value2);
+    return makeLine[child.status](newAncestors, { value1, value2 });
   });
   return result.filter((n) => n).join('\n');
 };
