@@ -18,9 +18,6 @@ const makeLine = {
 };
 
 const renderPlain = (ast, ancestors = []) => {
-  if (ast.length === 0) { // наверное лучше убрать
-    return null;
-  }
   const result = ast.map((child) => {
     const newAncestors = [...ancestors, child.key];
     if (child.status === 'nested') {
