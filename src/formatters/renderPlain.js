@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const makeValue = (value) => {
+const stringify = (value) => {
   if (_.isObject(value)) {
     return '[complex value]';
   }
@@ -10,22 +10,21 @@ const makeValue = (value) => {
   return value;
 };
 
-const makeLine = {
-  unchanged: () => null,
-  changed: (ancestors, values) => `Property '${ancestors.join('.')}' was changed from ${values.value1} to ${values.value2}`,
-  added: (ancestors, values) => `Property '${ancestors.join('.')}' was added with value: ${values.value2}`,
-  deleted: (ancestors) => `Property '${ancestors.join('.')}' was deleted`,
-};
-
 const renderPlain = (ast, ancestors = []) => {
-  const result = ast.map((child) => {
-    const newAncestors = [...ancestors, child.key];
-    if (child.status === 'nested') {
-      return renderPlain(child.children, newAncestors);
-    }
-    const value1 = makeValue(child.value1);
-    const value2 = makeValue(child.value2);
-    return makeLine[child.status](newAncestors, { value1, value2 });
+  const makeLine = {
+    nested: (property, node) => renderPlain(node.children, property),
+    unchanged: () => null,
+    changed: (property, node) => `Property '${property.join('.')}' was changed from ${node.value1} to ${node.value2}`,
+    added: (property, node) => `Property '${property.join('.')}' was added with value: ${node.value2}`,
+    deleted: (property) => `Property '${property.join('.')}' was deleted`,
+  };
+
+  const result = ast.map((node) => {
+    const newAncestors = [...ancestors, node.key];
+    const value1 = stringify(node.value1);
+    const value2 = stringify(node.value2);
+    const updatedNode = { ...node, value1, value2 };
+    return makeLine[node.status](newAncestors, updatedNode);
   });
   return result.filter((n) => n).join('\n');
 };

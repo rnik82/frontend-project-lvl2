@@ -18,12 +18,9 @@ const changeStrToNumber = (object) => {
 };
 
 const mapping = {
-  json: JSON.parse,
-  yml: yaml.safeLoad,
-  ini: ini.parse,
+  json: (data) => JSON.parse(data),
+  yml: (data) => yaml.safeLoad(data),
+  ini: (data) => changeStrToNumber(ini.parse(data)),
 };
 
-export default (data, type) => {
-  const parsedData = mapping[type](data);
-  return type === 'ini' ? changeStrToNumber(parsedData) : parsedData;
-};
+export default (data, type) => mapping[type](data);
