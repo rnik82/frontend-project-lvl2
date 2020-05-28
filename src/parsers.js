@@ -18,8 +18,8 @@ const changeStrToNumber = (object) => {
 };
 
 const mapping = {
-  json: (data) => JSON.parse(data),
-  yml: (data) => yaml.safeLoad(data),
+  json: JSON.parse,
+  yml: yaml.safeLoad,
   ini: (data) => changeStrToNumber(ini.parse(data)),
 };
 
